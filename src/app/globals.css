@@ -179,6 +179,17 @@ textarea {
   white-space: nowrap;
 }
 
+/* Long labels wrap instead of spilling out on narrow phones */
+@media (max-width: 420px) {
+  .btn {
+    max-width: 100%;
+    white-space: normal;
+    text-align: center;
+    line-height: 1.4;
+    padding: 12px 22px;
+  }
+}
+
 .btn:hover {
   background: var(--teal-deep);
   border-color: var(--teal-deep);

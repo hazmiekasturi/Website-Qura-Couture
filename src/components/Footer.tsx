@@ -3,7 +3,7 @@ import s from "./Footer.module.css";
 
 export function Footer() {
   return (
-    <footer className={`${s.footer} on-dark`} data-thread-dark>
+    <footer id="site-footer" className={`${s.footer} on-dark`} data-thread-dark>
       <div className={`wrap ${s.top}`}>
         <p className={s.line}>
           Designed <em>as one.</em>
