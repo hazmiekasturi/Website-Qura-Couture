@@ -1,9 +1,6 @@
 import type { NextConfig } from "next";
 
-const nextConfig: NextConfig = {
-  /* config options here */
-  cacheComponents: true,
-  partialPrefetching: true,
-};
+// Cache Components is off: it hangs on the Cloudflare Workers runtime, and this site is fully static.
+const nextConfig: NextConfig = {};
 
 export default nextConfig;
