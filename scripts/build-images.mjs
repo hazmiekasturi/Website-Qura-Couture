@@ -121,10 +121,64 @@ async function buildSketchPlaceholder(manifest) {
   console.log(`sketch-placeholder  ${w}x${h}`);
 }
 
+// Favicon / app icons from the crown-Q monogram (Next.js picks up src/app/icon.png and apple-icon.png).
+async function buildIcons() {
+  const mark = sharp(path.join(SRC, "monogram.jpg")).extract({ left: 68, top: 50, width: 815, height: 815 });
+  const app = path.join(ROOT, "src", "app");
+  await mark.clone().resize(512).png({ compressionLevel: 9 }).toFile(path.join(app, "icon.png"));
+  await mark.clone().resize(180).png({ compressionLevel: 9 }).toFile(path.join(app, "apple-icon.png"));
+  // Maskable icon for the web manifest: extra padding so Android's mask never clips the crown.
+  await sharp(path.join(SRC, "monogram.jpg"))
+    .resize(512)
+    .png({ compressionLevel: 9 })
+    .toFile(path.join(ROOT, "public", "brand", "icon-maskable-512.png"));
+  console.log("icons  icon.png, apple-icon.png, maskable");
+}
+
+// 1200x630 social share image: ivory panel with the logo, the hero couple on the right.
+async function buildOg() {
+  const W = 1200, H = 630, panel = 500;
+  const hero = await sharp(path.join(SRC, "hero-bg.webp"))
+    .composite([{ input: path.join(SRC, "hero-couple.webp") }])
+    .toBuffer();
+  // crop around the couple (centre x ≈ 1036 of 2025) at the photo side's aspect
+  const cropW = Math.round(1350 * ((W - panel) / H));
+  const photo = await sharp(hero)
+    .extract({ left: Math.max(0, 1036 - Math.round(cropW / 2)), top: 0, width: cropW, height: 1350 })
+    .resize(W - panel, H)
+    .toBuffer();
+  const logo = await sharp(path.join(ROOT, "public", "brand", "logo-teal.png")).resize(300).toBuffer();
+  const overlay = Buffer.from(`<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}">
+    <defs><linearGradient id="g" x1="0" x2="1"><stop offset="0" stop-color="#faf7f2"/><stop offset="1" stop-color="#faf7f2" stop-opacity="0"/></linearGradient></defs>
+    <rect x="${panel}" y="0" width="140" height="${H}" fill="url(#g)"/>
+    <text x="${panel / 2}" y="420" text-anchor="middle" font-family="Georgia, serif" font-style="italic" font-size="30" fill="#1e2524">Nikah &amp; wedding couture,</text>
+    <text x="${panel / 2}" y="460" text-anchor="middle" font-family="Georgia, serif" font-style="italic" font-size="30" fill="#317673">designed as one.</text>
+    <text x="${panel / 2}" y="540" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" letter-spacing="4" fill="#3e4846">PRIVATE ATELIER · PUCHONG</text>
+  </svg>`);
+  await sharp({ create: { width: W, height: H, channels: 3, background: "#faf7f2" } })
+    .composite([
+      { input: photo, left: panel, top: 0 },
+      { input: overlay, left: 0, top: 0 },
+      { input: logo, left: Math.round(panel / 2 - 150), top: 170 },
+    ])
+    .jpeg({ quality: 86, mozjpeg: true })
+    .toFile(path.join(ROOT, "public", "og.jpg"));
+  console.log("og.jpg  1200x630");
+}
+
 await mkdir(OUT, { recursive: true });
 const manifest = {};
+const only = process.argv[2];
+if (only === "--brand") {
+  await buildLogo();
+  await buildIcons();
+  await buildOg();
+  process.exit(0);
+}
 await buildPhotos(manifest);
 await buildSketchPlaceholder(manifest);
 await buildLogo();
+await buildIcons();
+await buildOg();
 await writeFile(MANIFEST, JSON.stringify(manifest, null, 2) + "\n");
 console.log(`\nWrote ${Object.keys(manifest).length} images to public/img and src/lib/images.json`);

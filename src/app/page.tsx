@@ -13,10 +13,12 @@ import { Packages } from "@/components/Packages";
 import { Enquiry } from "@/components/Enquiry";
 import { Footer } from "@/components/Footer";
 import { MobileBar } from "@/components/MobileBar";
+import { StructuredData } from "@/components/StructuredData";
 
 export default function Home() {
   return (
     <>
+      <StructuredData />
       <VeilIntro />
       <SmoothScroll />
       <Reveal />

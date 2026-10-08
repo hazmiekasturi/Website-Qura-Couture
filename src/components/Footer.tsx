@@ -43,6 +43,10 @@ export function Footer() {
           </p>
         </div>
       </div>
+      <p className={`wrap ${s.about}`}>
+        Custom baju nikah, wedding gowns and matching Baju Melayu, made to measure for the bride and groom at our private
+        bridal atelier in Puchong, Selangor. Welcoming couples from Kuala Lumpur, Cyberjaya, Johor Bahru and Singapore.
+      </p>
       <div className={`wrap ${s.base}`}>
         <span>© Qura Couture</span>
         <span>Est. 2015 · Mersing · Johor Bahru · Puchong</span>

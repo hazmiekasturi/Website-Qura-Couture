@@ -61,6 +61,15 @@
   height: auto;
 }
 
+.about {
+  margin: 0 auto;
+  padding-bottom: 28px;
+  max-width: var(--maxw);
+  font-size: 13px;
+  line-height: 1.7;
+  color: rgba(250, 247, 242, 0.62);
+}
+
 .base {
   display: flex;
   flex-wrap: wrap;

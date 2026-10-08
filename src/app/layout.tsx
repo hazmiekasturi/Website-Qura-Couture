@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Cormorant_Garamond, Jost } from "next/font/google";
+import { site } from "@/lib/site";
 import "./globals.css";
 
 const serif = Cormorant_Garamond({
@@ -17,20 +18,33 @@ const sans = Jost({
   display: "swap",
 });
 
+// Kept within what Google displays: ~60 characters for the title, ~155 for the description.
+const title = "Custom Nikah & Wedding Outfits, Puchong | Qura Couture";
+const description =
+  "Bespoke baju nikah and matching Baju Melayu, designed as one for the bride and groom. Private atelier in Puchong, Selangor, serving Malaysia and Singapore.";
+
 export const metadata: Metadata = {
-  metadataBase: new URL("https://quracouture.com"),
-  title: "Qura Couture · Nikah & Wedding Couture for the Bride and Groom",
-  description:
-    "Private bridal atelier in Puchong, by appointment only. Custom nikah and wedding couture for the bride and groom, designed as one. Serving Malaysia and Singapore since 2015.",
+  metadataBase: new URL(site.url),
+  title,
+  description,
+  applicationName: site.name,
+  alternates: { canonical: "/" },
   openGraph: {
-    title: "Qura Couture",
-    description: "Nikah & wedding couture for the bride and groom, designed as one.",
-    url: "https://quracouture.com",
-    siteName: "Qura Couture",
-    images: [{ url: "/img/hero-mobile-1080.webp", width: 1080, height: 1615 }],
+    title: "Qura Couture · Nikah & wedding couture, designed as one",
+    description,
+    url: "/",
+    siteName: site.name,
+    images: [{ url: "/og.jpg", width: 1200, height: 630, alt: "Qura Couture: a bride and groom in matching white nikah outfits" }],
     locale: "en_MY",
     type: "website",
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "Qura Couture · Nikah & wedding couture, designed as one",
+    description,
+    images: ["/og.jpg"],
+  },
+  formatDetection: { telephone: false },
 };
 
 export const viewport: Viewport = {
