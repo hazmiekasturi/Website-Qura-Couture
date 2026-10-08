@@ -1,0 +1,89 @@
+.veil {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+:global(.veil-skip) .veil {
+  display: none;
+}
+
+.fabric {
+  position: absolute;
+  inset: 0 0 -10vh 0;
+  transform-origin: 50% 0;
+  background: rgba(250, 247, 242, 0.86);
+  -webkit-backdrop-filter: blur(5px) saturate(0.9);
+  backdrop-filter: blur(5px) saturate(0.9);
+  will-change: transform;
+}
+
+/* Soft vertical folds of sheer tulle */
+.folds {
+  position: absolute;
+  inset: 0 -10%;
+  background:
+    repeating-linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0) 0,
+      rgba(255, 255, 255, 0.55) 3.5vw,
+      rgba(222, 212, 198, 0.28) 7vw,
+      rgba(255, 255, 255, 0) 10.5vw
+    ),
+    repeating-linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0) 0,
+      rgba(255, 255, 255, 0.35) 9vw,
+      rgba(214, 203, 189, 0.2) 17vw,
+      rgba(255, 255, 255, 0) 26vw
+    );
+}
+
+/* Fine tulle mesh */
+.mesh {
+  position: absolute;
+  inset: 0;
+  opacity: 0.7;
+  background-image: radial-gradient(rgba(49, 118, 115, 0.07) 0.7px, transparent 0.9px);
+  background-size: 4px 4px;
+}
+
+/* Scalloped lace hem with a line of embroidered dots */
+.hem {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -34px;
+  height: 34px;
+  background:
+    radial-gradient(circle at 50% 0, rgba(250, 247, 242, 0.86) 0 23px, rgba(49, 118, 115, 0.28) 23.5px 24.5px, transparent 25px)
+      0 0 / 48px 34px repeat-x;
+}
+
+.hem::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -12px;
+  height: 6px;
+  background: radial-gradient(circle, rgba(49, 118, 115, 0.35) 1.2px, transparent 1.6px) 0 0 / 12px 6px repeat-x;
+}
+
+.mark {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 22px;
+  visibility: hidden;
+}
+
+.logo {
+  width: clamp(170px, 18vw, 240px);
+  height: auto;
+}

@@ -1,0 +1,242 @@
+.section {
+  position: relative;
+  padding: clamp(88px, 12vw, 160px) 0;
+  background: var(--ivory-2);
+}
+
+.top {
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+}
+
+.intro {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 28px 24px;
+  background: var(--paper);
+  border: 1px solid var(--line);
+}
+
+.label {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+}
+
+.date {
+  height: 56px;
+  padding: 0 14px;
+  border: 1px solid var(--line-2);
+  border-radius: 0;
+  background: #fff;
+  font-size: 17px;
+  color: var(--ink);
+  -webkit-appearance: none;
+  appearance: none;
+  min-width: 0;
+  width: 100%;
+}
+
+.result {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 10px;
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
+}
+
+.bookBy {
+  font-family: var(--serif);
+  font-size: clamp(32px, 4vw, 44px);
+  line-height: 1.05;
+  color: var(--teal-deep);
+  animation: rise 0.8s var(--ease-out);
+}
+
+.msg {
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--ink-2);
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+
+/* ---------- Timeline: vertical on phones ---------- */
+
+.line {
+  --line-color: var(--line-2);
+  position: relative;
+  list-style: none;
+  margin: 48px 0 0;
+  padding: 0 0 0 36px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.line::before,
+.line::after {
+  content: "";
+  position: absolute;
+  left: 6px;
+  top: 8px;
+  bottom: 8px;
+  width: 1px;
+  background: var(--line-2);
+}
+
+/* the thread draws along the timeline once a date is chosen */
+.line::after {
+  background: var(--teal);
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform 1.6s var(--ease);
+}
+
+.line[data-has="true"]::after {
+  transform: scaleY(1);
+}
+
+.line li {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.node {
+  position: absolute;
+  left: -36px;
+  top: 3px;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  border: 1px solid var(--teal);
+  background: var(--ivory-2);
+  transition:
+    background-color 0.5s var(--ease-out),
+    transform 0.5s var(--ease-out);
+  transition-delay: calc(var(--i) * 0.3s);
+}
+
+.line[data-has="true"] .node {
+  background: var(--teal);
+  transform: scale(1.1);
+}
+
+.week {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--teal);
+}
+
+.mLabel {
+  font-family: var(--serif);
+  font-size: 26px;
+  line-height: 1.15;
+}
+
+.mNote {
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--ink-2);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 44px;
+}
+
+.icon {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+}
+
+.notes {
+  margin: 28px 0 0;
+  max-width: 720px;
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--ink-2);
+}
+
+.notes strong {
+  font-weight: 500;
+  color: var(--ink);
+}
+
+/* ---------- Desktop: horizontal timeline ---------- */
+@media (min-width: 900px) {
+  .top {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 80px;
+  }
+  .intro {
+    max-width: 560px;
+  }
+  .form {
+    width: 420px;
+    flex-shrink: 0;
+    padding: 36px;
+  }
+
+  .line {
+    flex-direction: row;
+    padding: 36px 0 0;
+    margin-top: 80px;
+    gap: 24px;
+  }
+
+  .line::before,
+  .line::after {
+    left: 6px;
+    right: 0;
+    top: 6px;
+    bottom: auto;
+    width: auto;
+    height: 1px;
+  }
+
+  .line::after {
+    transform: scaleX(0);
+    transform-origin: left;
+  }
+
+  .line[data-has="true"]::after {
+    transform: scaleX(1);
+  }
+
+  .line li {
+    flex: 1;
+  }
+
+  .node {
+    left: 0;
+    top: -36px;
+  }
+}

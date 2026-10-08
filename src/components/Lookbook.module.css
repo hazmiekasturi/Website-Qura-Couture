@@ -1,0 +1,258 @@
+.section {
+  position: relative;
+  padding: clamp(80px, 12vw, 160px) 0 clamp(80px, 10vw, 140px);
+  background: var(--ivory-2);
+}
+
+.head {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: clamp(32px, 5vw, 64px);
+}
+
+/* ---------- Desktop index ---------- */
+
+.index {
+  display: none;
+  position: relative;
+}
+
+.index ol {
+  list-style: none;
+  margin: 0 auto;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 80px 1fr auto;
+  align-items: baseline;
+  gap: 24px;
+  padding: 22px 0 18px;
+  border-top: 1px solid var(--line);
+  cursor: default;
+  transition: opacity 0.5s var(--ease-out);
+}
+
+.row:last-child {
+  border-bottom: 1px solid var(--line);
+}
+
+.index[data-active="true"] .row:not([data-on="true"]) {
+  opacity: 0.32;
+}
+
+.no {
+  font-size: 11px;
+  letter-spacing: 0.24em;
+  color: var(--teal);
+}
+
+.name {
+  font-family: var(--serif);
+  font-size: clamp(44px, 5.6vw, 88px);
+  line-height: 1;
+  transition:
+    transform 0.7s var(--ease-out),
+    font-style 0s;
+}
+
+.row[data-on="true"] .name {
+  transform: translateX(18px);
+  font-style: italic;
+  color: var(--teal-deep);
+}
+
+.meta {
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  color: var(--ink-2);
+  text-align: right;
+}
+
+.preview {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 300px;
+  height: 400px;
+  margin: -200px 0 0 56px;
+  pointer-events: none;
+  z-index: 25;
+}
+
+.frame {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  clip-path: inset(50% 0 50% 0);
+  transition: clip-path 0.7s var(--ease);
+}
+
+.frame[data-on="true"] {
+  clip-path: inset(0 0 0 0);
+}
+
+.frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.15);
+  transition: transform 1.2s var(--ease-out);
+}
+
+.frame[data-on="true"] img {
+  transform: scale(1);
+}
+
+/* ---------- Touch stories ---------- */
+
+.stories {
+  padding: 0 var(--gutter);
+}
+
+.viewer {
+  position: relative;
+  height: min(76svh, 140vw);
+  max-width: 560px;
+  margin: 0 auto;
+  overflow: hidden;
+  background: var(--ivory-2);
+  touch-action: pan-y;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+}
+
+.slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.9s var(--ease-out);
+}
+
+.slide[data-on="true"] {
+  opacity: 1;
+}
+
+.slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.06);
+  transition: transform 6s linear;
+}
+
+.slide[data-on="true"] img {
+  transform: scale(1);
+}
+
+.bar {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  right: 14px;
+  display: flex;
+  gap: 4px;
+  z-index: 2;
+}
+
+.bar span {
+  flex: 1;
+  height: 2px;
+  background: rgba(250, 247, 242, 0.4);
+  overflow: hidden;
+}
+
+.bar i {
+  display: block;
+  height: 100%;
+  background: var(--ivory);
+  transform-origin: left;
+}
+
+.caption {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 80px 20px 22px;
+  background: linear-gradient(0deg, rgba(20, 28, 27, 0.62), rgba(20, 28, 27, 0));
+  color: var(--ivory);
+}
+
+.count {
+  font-size: 11px;
+  letter-spacing: 0.24em;
+  opacity: 0.85;
+}
+
+.capName {
+  font-family: var(--serif);
+  font-size: 36px;
+  line-height: 1.1;
+}
+
+.capMeta {
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  opacity: 0.9;
+}
+
+.pausedTag {
+  position: absolute;
+  top: 30px;
+  right: 16px;
+  z-index: 2;
+  font-size: 10px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--ivory);
+}
+
+.controls {
+  max-width: 560px;
+  margin: 14px auto 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.controls p {
+  margin: 0;
+  font-size: 12px;
+  color: var(--ink-3);
+  text-align: center;
+}
+
+.controls button {
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--line-2);
+  background: none;
+  cursor: pointer;
+}
+
+.controls svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 1.4;
+}
+
+@media (hover: hover) and (pointer: fine) and (min-width: 1024px) {
+  .index {
+    display: block;
+  }
+  .stories {
+    display: none;
+  }
+}

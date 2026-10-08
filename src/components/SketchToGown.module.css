@@ -1,0 +1,196 @@
+.section {
+  position: relative;
+  height: 300svh;
+  background: var(--teal-deep);
+  color: var(--ivory);
+}
+
+.sticky {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  padding: calc(var(--header-h) + 8px) var(--gutter) 24px;
+}
+
+.copy {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.copy h2 {
+  font-size: clamp(30px, 8vw, 64px);
+}
+
+/* Mobile: only the current chapter shows, under the heading */
+.chapters {
+  list-style: none;
+  margin: 4px 0 0;
+  padding: 0;
+  display: grid;
+}
+
+.chapters li {
+  grid-area: 1 / 1;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  column-gap: 12px;
+  align-items: baseline;
+  opacity: 0;
+  transform: translateY(8px);
+  transition:
+    opacity 0.6s var(--ease-out),
+    transform 0.6s var(--ease-out);
+}
+
+.chapters li[data-on="true"] {
+  opacity: 1;
+  transform: none;
+}
+
+.no {
+  font-size: 11px;
+  letter-spacing: 0.24em;
+  color: var(--champagne);
+}
+
+.title {
+  font-family: var(--serif);
+  font-size: 22px;
+  font-style: italic;
+}
+
+.text {
+  grid-column: 2;
+  font-size: 14px;
+  line-height: 1.6;
+  color: rgba(250, 247, 242, 0.78);
+}
+
+.frame {
+  --p: 0;
+  --q: 0;
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  aspect-ratio: 3 / 5;
+  max-width: 100%;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.28);
+}
+
+.paper,
+.sketch,
+.photo {
+  position: absolute;
+  inset: 0;
+}
+
+.paper {
+  background:
+    radial-gradient(ellipse at 30% 20%, rgba(255, 255, 255, 0.6), transparent 60%),
+    linear-gradient(180deg, #f8f4ec, #efe7da);
+}
+
+.paper::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0.35;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.45 0 0 0 0 0.4 0 0 0 0 0.33 0 0 0 0.35 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* The pencil draws from top to bottom */
+.sketch {
+  -webkit-mask-image: linear-gradient(180deg, #000 calc(var(--p) * 125% - 25%), transparent calc(var(--p) * 125%));
+  mask-image: linear-gradient(180deg, #000 calc(var(--p) * 125% - 25%), transparent calc(var(--p) * 125%));
+}
+
+.sketch img,
+.photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.sketch img {
+  mix-blend-mode: multiply;
+  opacity: 0.92;
+}
+
+/* The gown dissolves through the drawing */
+.photo {
+  -webkit-mask-image: radial-gradient(
+    ellipse 70% 60% at 52% 42%,
+    #000 calc(var(--q) * 140% - 30%),
+    transparent calc(var(--q) * 140%)
+  );
+  mask-image: radial-gradient(ellipse 70% 60% at 52% 42%, #000 calc(var(--q) * 140% - 30%), transparent calc(var(--q) * 140%));
+}
+
+.paperNote {
+  position: absolute;
+  left: 14px;
+  bottom: 12px;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 14px;
+  color: rgba(30, 37, 36, 0.55);
+}
+
+@media (min-width: 900px) {
+  .sticky {
+    flex-direction: row;
+    justify-content: center;
+    gap: clamp(48px, 8vw, 140px);
+    padding: calc(var(--header-h) + 32px) var(--gutter) 48px;
+  }
+
+  .copy {
+    width: min(460px, 36vw);
+    gap: 22px;
+  }
+
+  .copy h2 {
+    font-size: clamp(40px, 4.2vw, 64px);
+  }
+
+  .chapters {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin-top: 18px;
+  }
+
+  .chapters li {
+    padding: 18px 0;
+    border-top: 1px solid rgba(250, 247, 242, 0.16);
+    opacity: 0.38;
+    transform: none;
+  }
+
+  .chapters li[data-on="true"] {
+    opacity: 1;
+  }
+
+  .frame {
+    flex: 0 0 auto;
+    height: 100%;
+    max-height: 820px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .section {
+    height: auto;
+  }
+  .sticky {
+    position: relative;
+  }
+}

@@ -1,0 +1,212 @@
+/* Mobile / portrait first: words on top, the layered couple below. */
+.hero {
+  position: relative;
+  min-height: 100svh;
+  overflow: hidden;
+  background: var(--ivory);
+  display: flex;
+  flex-direction: column;
+}
+
+.copy {
+  position: relative;
+  z-index: 3;
+  padding: calc(var(--header-h) + 28px) var(--gutter) 0;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.copy h1 {
+  font-size: clamp(38px, 10.4vw, 64px);
+  max-width: 12em;
+}
+
+.ctas {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 24px;
+  margin-top: 6px;
+}
+
+/* On phones the secondary action is a quiet text link */
+.ctas :global(.btn-ghost) {
+  min-height: 44px;
+  padding: 0;
+  border: 0;
+  background: none;
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  text-decoration: underline;
+  text-underline-offset: 6px;
+  text-decoration-thickness: 1px;
+}
+
+/* Layer box keeps the cut-out aligned with its background: both share the same 3:2 frame. */
+.stage {
+  position: relative;
+  flex-shrink: 0;
+  order: 2;
+  margin-top: auto;
+  left: 50%;
+  width: min(176vw, 100svh);
+  aspect-ratio: 3 / 2;
+  transform: translateX(-51.2%);
+  overflow: hidden;
+}
+
+.depth,
+.bgScroll,
+.coupleScroll,
+.bgMouse,
+.coupleMouse {
+  position: absolute;
+  inset: 0;
+}
+
+.layer {
+  position: absolute;
+  inset: 0;
+}
+
+.layer img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 100%;
+}
+
+.kb img {
+  animation: kb 24s ease-in-out infinite alternate;
+  transform-origin: 60% 60%;
+}
+
+@keyframes kb {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.06);
+  }
+}
+
+/* Mobile: the garden dissolves upward into ivory behind the words. */
+.wash {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, var(--ivory) 0%, rgba(250, 247, 242, 0.75) 18%, rgba(250, 247, 242, 0) 46%);
+}
+
+.coupleMouse img {
+  filter: drop-shadow(0 22px 34px rgba(30, 37, 36, 0.16));
+}
+
+.cue {
+  display: none;
+}
+
+/* ---------- Desktop / landscape tablet ---------- */
+@media (min-width: 900px) and (min-aspect-ratio: 5/4) {
+  .hero {
+    height: clamp(640px, 100svh, 980px);
+    min-height: 0;
+    justify-content: center;
+  }
+
+  .copy {
+    padding: var(--header-h) 0 0 var(--gutter);
+    max-width: calc(var(--gutter) + 600px);
+    gap: 26px;
+  }
+
+  .copy h1 {
+    font-size: clamp(48px, 4.6vw, 72px);
+  }
+
+  .ctas :global(.btn-ghost) {
+    min-height: 48px;
+    padding: 0 28px;
+    border: 1px solid var(--teal);
+    font-size: 13px;
+    letter-spacing: 0.14em;
+    text-decoration: none;
+  }
+
+  .stage {
+    position: absolute;
+    margin: 0;
+    right: auto;
+    top: auto;
+    bottom: -20px;
+    height: calc(100% + 40px);
+    width: auto;
+    max-height: none;
+    aspect-ratio: 3 / 2;
+    /* puts the couple at ~70% of the viewport */
+    left: calc(70vw - (100svh + 40px) * 1.5 * 0.512);
+    transform: none;
+  }
+
+  .wash {
+    background: linear-gradient(
+      90deg,
+      var(--ivory) 0,
+      var(--ivory) 8%,
+      rgba(250, 247, 242, 0.88) 14%,
+      rgba(250, 247, 242, 0.4) 24%,
+      rgba(250, 247, 242, 0) 34%
+    );
+  }
+
+  .cue {
+    position: absolute;
+    left: var(--gutter);
+    bottom: 40px;
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font-size: 11px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--ink-2);
+  }
+
+  .cue span {
+    width: 1px;
+    height: 40px;
+    background: var(--teal);
+    transform-origin: top;
+    animation: cue 2.4s var(--ease) infinite;
+  }
+}
+
+/* Keep the stage height in step with the clamped hero height */
+@media (min-width: 900px) and (min-aspect-ratio: 5/4) and (max-height: 640px) {
+  .stage {
+    left: calc(70vw - 680px * 1.5 * 0.512);
+  }
+}
+@media (min-width: 900px) and (min-aspect-ratio: 5/4) and (min-height: 980px) {
+  .stage {
+    left: calc(70vw - 1020px * 1.5 * 0.512);
+  }
+}
+
+@keyframes cue {
+  0% {
+    transform: scaleY(0);
+  }
+  50% {
+    transform: scaleY(1);
+    transform-origin: top;
+  }
+  51% {
+    transform-origin: bottom;
+  }
+  100% {
+    transform: scaleY(0);
+    transform-origin: bottom;
+  }
+}
