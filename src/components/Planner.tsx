@@ -127,8 +127,8 @@ export function Planner() {
 
         <p className={s.notes}>
           A {site.depositPct}% deposit secures your slot; the balance is settled before collection. Need it sooner? Express
-          service is available at additional cost. <strong>Travelling from Singapore?</strong> We plan your fittings to keep
-          trips to Puchong to a minimum.
+          service is available at additional cost. <strong>Coming from Johor or Singapore?</strong> Your consultation and fittings
+          can be held in Johor Bahru, just across the Causeway.
         </p>
       </div>
       <ThreadAnchor x="calc(var(--gutter) * 0.5)" y="99%" mx="10px" my="99%" />

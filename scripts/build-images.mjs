@@ -153,7 +153,7 @@ async function buildOg() {
     <rect x="${panel}" y="0" width="140" height="${H}" fill="url(#g)"/>
     <text x="${panel / 2}" y="420" text-anchor="middle" font-family="Georgia, serif" font-style="italic" font-size="30" fill="#1e2524">Nikah &amp; wedding couture,</text>
     <text x="${panel / 2}" y="460" text-anchor="middle" font-family="Georgia, serif" font-style="italic" font-size="30" fill="#317673">designed as one.</text>
-    <text x="${panel / 2}" y="540" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" letter-spacing="4" fill="#3e4846">PRIVATE ATELIER · PUCHONG</text>
+    <text x="${panel / 2}" y="540" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" letter-spacing="4" fill="#3e4846">SELANGOR · JOHOR BAHRU</text>
   </svg>`);
   await sharp({ create: { width: W, height: H, channels: 3, background: "#faf7f2" } })
     .composite([

@@ -20,16 +20,17 @@ export function StructuredData() {
         telephone: `+${site.whatsapp}`,
         priceRange: "RM1,599 – RM4,299+",
         currenciesAccepted: "MYR",
+        // Puchong stays here (not in visible copy) so nearby searches still find the atelier.
         address: { "@type": "PostalAddress", addressLocality: "Puchong", addressRegion: "Selangor", addressCountry: "MY" },
-        // TODO: confirm the areas Qura wants to be found for.
         areaServed: [
           { "@type": "State", name: "Selangor" },
           { "@type": "City", name: "Kuala Lumpur" },
           { "@type": "City", name: "Cyberjaya" },
+          { "@type": "State", name: "Johor" },
           { "@type": "City", name: "Johor Bahru" },
           { "@type": "Country", name: "Singapore" },
         ],
-        sameAs: [site.instagram],
+        sameAs: [site.instagram, site.facebook],
         makesOffer: packages.map((p) => ({
           "@type": "Offer",
           name: `${p.name} bride & groom package`,

@@ -5,7 +5,7 @@ import { ThreadAnchor } from "./Thread";
 import { site, whatsappLink } from "@/lib/site";
 import s from "./Enquiry.module.css";
 
-type Form = { bride: string; groom: string; date: string; outfits: string; style: string; phone: string };
+type Form = { bride: string; groom: string; date: string; outfits: string; style: string; place: string; phone: string };
 
 const fmt = (v: string) => {
   const d = new Date(`${v}T00:00:00`);
@@ -18,7 +18,7 @@ const fmt = (v: string) => {
  * TODO (phase 1b): also save the request to Supabase.
  */
 export function Enquiry() {
-  const [f, setF] = useState<Form>({ bride: "", groom: "", date: "", outfits: "both outfits", style: "not sure yet", phone: "" });
+  const [f, setF] = useState<Form>({ bride: "", groom: "", date: "", outfits: "both outfits", style: "not sure yet", place: "Selangor", phone: "" });
   const [done, setDone] = useState(false);
   const set = (k: keyof Form) => (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => setF({ ...f, [k]: e.target.value });
 
@@ -29,6 +29,7 @@ export function Enquiry() {
     `Nikah date: ${fmt(f.date) || "not set yet"}\n` +
     `Outfits: ${f.outfits}\n` +
     `Package: ${f.style}\n` +
+    `Meet in: ${f.place}\n` +
     `WhatsApp: ${f.phone || "-"}`;
 
   const share = async () => {
@@ -53,7 +54,7 @@ export function Enquiry() {
           Begin with a <em>consultation.</em>
         </h2>
         <p className="lede" data-reveal>
-          Our atelier in Puchong is private and by appointment only. Fill in your card and we&rsquo;ll confirm your date
+          We meet couples privately, by appointment, in Selangor and Johor Bahru. Fill in your card and we&rsquo;ll confirm your date
           within {site.replyTime}.
         </p>
       </div>
@@ -107,6 +108,14 @@ export function Enquiry() {
                 <option value="Signature">Signature</option>
                 <option value="Couture">Couture</option>
               </select>
+              . We&rsquo;d like to meet in{" "}
+              <label className="sr-only" htmlFor="e-place">
+                Where to meet
+              </label>
+              <select id="e-place" value={f.place} onChange={set("place")}>
+                <option>Selangor</option>
+                <option>Johor Bahru</option>
+              </select>
               . Reach us on WhatsApp at{" "}
               <label className="sr-only" htmlFor="e-phone">
                 WhatsApp number
@@ -134,6 +143,7 @@ export function Enquiry() {
             <p className={s.cardEyebrow}>With love, from the atelier</p>
             <p className={s.names}>{names || "Your names"}</p>
             <p className={s.when}>{f.date ? `Nikah · ${fmt(f.date)}` : "Nikah date to be confirmed"}</p>
+            <p className={s.when}>Consultation in {f.place}</p>
             <p className={s.backNote}>Your request is ready. Send it to us on WhatsApp and we&rsquo;ll reply to confirm your consultation.</p>
             <div className={s.backActions}>
               <a href={whatsappLink(message)} className="btn">

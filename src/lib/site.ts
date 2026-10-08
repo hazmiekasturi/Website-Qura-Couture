@@ -4,8 +4,9 @@ export const site = {
   name: "Qura Couture",
   url: "https://quracouture.com",
   tagline: "Nikah & wedding couture for the bride and groom, designed as one.",
-  location: "Private atelier, Puchong · By appointment only",
+  location: "By appointment in Selangor & Johor Bahru",
   instagram: "https://www.instagram.com/quracouture/",
+  facebook: "https://www.facebook.com/quracouture",
   // WhatsApp number in international format, without "+"
   whatsapp: "60125131751",
   replyTime: "an hour on working days",

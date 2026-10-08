@@ -19,9 +19,9 @@ const sans = Jost({
 });
 
 // Kept within what Google displays: ~60 characters for the title, ~155 for the description.
-const title = "Custom Nikah & Wedding Outfits, Puchong | Qura Couture";
+const title = "Custom Nikah & Wedding Outfits, Selangor & JB | Qura Couture";
 const description =
-  "Bespoke baju nikah and matching Baju Melayu, designed as one for the bride and groom. Private atelier in Puchong, Selangor, serving Malaysia and Singapore.";
+  "Bespoke baju nikah and matching Baju Melayu, designed as one for the bride and groom. By appointment in Selangor and Johor Bahru, for Malaysia and Singapore.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),

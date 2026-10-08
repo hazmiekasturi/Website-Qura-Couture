@@ -22,6 +22,17 @@
   max-width: 12em;
 }
 
+/* keeps the eyebrow on one line on phones */
+.appt {
+  display: none;
+}
+
+@media (min-width: 600px) {
+  .appt {
+    display: inline;
+  }
+}
+
 .ctas {
   display: flex;
   flex-wrap: wrap;

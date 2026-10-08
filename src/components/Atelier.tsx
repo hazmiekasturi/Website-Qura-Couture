@@ -106,7 +106,7 @@ function Loupe({ name, alt }: { name: ImageName; alt: string }) {
 const HISTORY = [
   { year: "2015", place: "Mersing, Johor", text: "Where it began: a small boutique and our first brides." },
   { year: "2021", place: "Johor Bahru", text: "A boutique in the city, and a growing list of couples." },
-  { year: "Today", place: "Puchong, Selangor", text: "A private atelier, by appointment only." },
+  { year: "Today", place: "Selangor & Johor Bahru", text: "A private atelier in Selangor, with appointments in Johor Bahru." },
 ];
 
 export function Atelier() {

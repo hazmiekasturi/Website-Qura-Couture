@@ -81,7 +81,7 @@ export function Hero() {
 
       <div className={s.copy}>
         <p className="eyebrow" data-hero-in>
-          Private atelier · Puchong · By appointment
+          Selangor &amp; Johor Bahru<span className={s.appt}> · By appointment</span>
         </p>
         <h1 className="display h1" data-hero-in>
           Nikah &amp; wedding couture for the bride and groom, <em>designed as one.</em>
