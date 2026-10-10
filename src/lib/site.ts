@@ -1,4 +1,4 @@
-// Business details used across the site. Items marked TODO need confirming with Qura.
+// Business details used across the site.
 
 export const site = {
   name: "Qura Couture",
@@ -12,7 +12,7 @@ export const site = {
   replyTime: "an hour on working days",
   leadWeeks: 12,
   depositPct: 30,
-  // TODO: set a rate (MYR per 1 SGD) to show approximate S$ prices; null hides them
+  // Rate (MYR per 1 SGD) to show approximate S$ prices; null hides them (Qura's choice)
   myrPerSgd: null as number | null,
 };
 
@@ -50,7 +50,7 @@ export const packages = [
   },
 ] as const;
 
-// Milestones in weeks from consultation. TODO: confirm the timings with Qura.
+// Milestones in weeks from consultation.
 export const milestones = [
   { key: "consultation", label: "Consultation", note: "We listen, sketch and agree your design.", week: 0 },
   { key: "fabric", label: "Fabric", note: "Lace and fabric chosen together, for both of you.", week: 1 },

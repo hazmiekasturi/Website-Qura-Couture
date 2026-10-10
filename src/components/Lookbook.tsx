@@ -6,13 +6,12 @@ import { ThreadAnchor } from "./Thread";
 import { gsap, useGSAP } from "@/lib/motion";
 import s from "./Lookbook.module.css";
 
-// TODO: confirm look names and details with Qura.
 const LOOKS: { name: string; meta: string; image: ImageName; alt: string }[] = [
   { name: "The Veil", meta: "Nikah · Lace cuffs, sheer veil", image: "look-veil", alt: "A bride seated by a window under a sheer veil" },
   { name: "Window Light", meta: "Nikah · Beaded lace bodice", image: "look-window", alt: "A bride in a beaded lace gown holding white roses by a window" },
   { name: "Blush Bloom", meta: "Sanding · Floral appliqué, cape", image: "look-blush", alt: "A bride in a white gown with blush floral appliqué and a cape" },
   { name: "Silver Thread", meta: "Nikah · Sequinned lace kurung", image: "look-lace", alt: "A laughing bride in a sequinned lace kurung holding orchids" },
-  { name: "Cathedral", meta: "Couple set · Cathedral veil", image: "look-cathedral", alt: "A bride with a cathedral-length veil beside her groom" },
+  { name: "Majestic", meta: "Couple set · Cathedral veil", image: "look-cathedral", alt: "A bride with a cathedral-length veil beside her groom" },
   { name: "Beyond the Nikah", meta: "Evening couture · Sequins, tulle train", image: "look-evening", alt: "A woman in a deep red sequinned gown with a black peplum and tulle train" },
 ];
 

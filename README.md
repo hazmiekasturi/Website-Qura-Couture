@@ -24,12 +24,6 @@ npm run deploy    # build and deploy to Cloudflare (needs `npx wrangler login` o
 
 ## Placeholders to fill (search for `TODO` and `[`)
 
-- WhatsApp number and reply time — `src/lib/site.ts`
-- Couple quotes, names and months — `src/components/RealCouples.tsx`
-- Retyped WhatsApp messages — `src/components/RealCouples.tsx`
-- Look names and details — `src/components/Lookbook.tsx`
-- Milestone timings (weeks) — `src/lib/site.ts`
-- Optional S$ prices: set `myrPerSgd` in `src/lib/site.ts`
 - Hand-drawn sketch: replace the generated placeholder (`sketch-placeholder`) once the scan arrives
 
 ## Adding or swapping a photo
