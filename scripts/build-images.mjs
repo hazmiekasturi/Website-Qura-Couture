@@ -92,33 +92,40 @@ async function buildLogo() {
   console.log("logo  teal + ivory");
 }
 
-// Placeholder pencil sketch until the real scan arrives: soft Sobel edges in graphite, on transparent.
-async function buildSketchPlaceholder(manifest) {
-  const src = sharp(path.join(SRC, "sketch-photo.jpg")).greyscale().blur(1.6);
-  const { data, info } = await src.raw().toBuffer({ resolveWithObject: true });
-  const { width: w, height: h } = info;
+// The designer's sketch, drawn over the blue baseline sheet (A4, 2480x3508). The baseline's photo frame
+// is x 412-2067, y 330-3089, registered to sketch-photo. Her signature and the hem run slightly past it,
+// so the crop is widened a little (same 3:5) and the blue, corner marks and sheet text are dropped.
+const SKETCH_CROP = { left: 380, top: 330, width: 1698, height: 2830 };
+const SKETCH_KEEP = [
+  { x0: 412, x1: 2067, y0: 330, y1: 3089 }, // the frame
+  { x0: 380, x1: 412, y0: 600, y1: 760 }, // signature, left edge
+  { x0: 900, x1: 1850, y0: 3089, y1: 3160 }, // hem
+];
+
+async function buildSketch(manifest) {
+  const { data, info } = await sharp(path.join(SRC, "sketch-scan.png")).removeAlpha().raw().toBuffer({ resolveWithObject: true });
+  const { left, top, width: w, height: h } = SKETCH_CROP;
   const out = Buffer.alloc(w * h * 4);
-  const L = (x, y) => data[y * w + x] / 255;
-  for (let y = 1; y < h - 1; y++) {
-    for (let x = 1; x < w - 1; x++) {
-      const gx = -L(x - 1, y - 1) - 2 * L(x - 1, y) - L(x - 1, y + 1) + L(x + 1, y - 1) + 2 * L(x + 1, y) + L(x + 1, y + 1);
-      const gy = -L(x - 1, y - 1) - 2 * L(x, y - 1) - L(x + 1, y - 1) + L(x - 1, y + 1) + 2 * L(x, y + 1) + L(x + 1, y + 1);
-      let e = Math.sqrt(gx * gx + gy * gy) * 4.2;
-      e = Math.min(1, Math.max(0, (e - 0.12) / 0.6));
-      e = Math.pow(e, 0.8);
-      out.set([52, 56, 58, Math.round(e * 235)], (y * w + x) * 4);
+  for (let y = 0; y < h; y++) {
+    for (let x = 0; x < w; x++) {
+      const sx = x + left, sy = y + top;
+      if (!SKETCH_KEEP.some((k) => sx >= k.x0 && sx < k.x1 && sy >= k.y0 && sy < k.y1)) continue;
+      const i = (sy * info.width + sx) * 3;
+      // The pale blue never drops below ~215 in its brightest channel; the ink does.
+      let a = (215 - Math.max(data[i], data[i + 1], data[i + 2])) / 185;
+      a = Math.min(1, Math.max(0, a));
+      out.set([40, 44, 46, Math.round(Math.pow(a, 0.85) * 240)], (y * w + x) * 4);
     }
   }
-  const img = sharp(out, { raw: { width: w, height: h, channels: 4 } });
-  const buf = await img.png().toBuffer();
+  const buf = await sharp(out, { raw: { width: w, height: h, channels: 4 } }).png().toBuffer();
   const widths = WIDTHS.filter((v) => v < w);
   widths.push(w);
   for (const v of widths) {
-    await sharp(buf).resize(v).webp({ quality: 85 }).toFile(path.join(OUT, `sketch-placeholder-${v}.webp`));
-    await sharp(buf).resize(v).avif({ quality: 60 }).toFile(path.join(OUT, `sketch-placeholder-${v}.avif`));
+    await sharp(buf).resize(v).webp({ quality: 85 }).toFile(path.join(OUT, `sketch-${v}.webp`));
+    await sharp(buf).resize(v).avif({ quality: 60 }).toFile(path.join(OUT, `sketch-${v}.avif`));
   }
-  manifest["sketch-placeholder"] = { w, h, widths, alpha: true, blur: null };
-  console.log(`sketch-placeholder  ${w}x${h}`);
+  manifest["sketch"] = { w, h, widths, alpha: true, blur: null };
+  console.log(`sketch  ${w}x${h}`);
 }
 
 // Favicon / app icons from the crown-Q monogram (Next.js picks up src/app/icon.png and apple-icon.png).
@@ -176,7 +183,7 @@ if (only === "--brand") {
   process.exit(0);
 }
 await buildPhotos(manifest);
-await buildSketchPlaceholder(manifest);
+await buildSketch(manifest);
 await buildLogo();
 await buildIcons();
 await buildOg();

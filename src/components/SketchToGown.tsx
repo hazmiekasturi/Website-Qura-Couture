@@ -14,7 +14,6 @@ const CHAPTERS = [
 
 /**
  * Scroll draws the designer's sketch onto paper, then the finished gown dissolves through it.
- * The sketch is a placeholder generated from the photo until the hand-drawn scan arrives.
  */
 export function SketchToGown() {
   const root = useRef<HTMLElement>(null);
@@ -69,7 +68,7 @@ export function SketchToGown() {
         <div className={s.frame}>
           <div className={s.paper} />
           <div className={s.sketch}>
-            <Picture name="sketch-placeholder" alt="" sizes="(min-width: 900px) 34vw, 70vw" />
+            <Picture name="sketch" alt="" sizes="(min-width: 900px) 34vw, 70vw" />
           </div>
           <div className={s.photo}>
             <Picture

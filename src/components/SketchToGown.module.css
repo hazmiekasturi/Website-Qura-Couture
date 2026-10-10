@@ -136,8 +136,9 @@
 
 .paperNote {
   position: absolute;
-  left: 14px;
-  bottom: 12px;
+  /* top right: her signature takes the top left and the hem reaches the bottom */
+  right: 14px;
+  top: 12px;
   font-family: var(--serif);
   font-style: italic;
   font-size: 14px;

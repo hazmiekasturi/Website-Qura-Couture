@@ -24,7 +24,11 @@ npm run deploy    # build and deploy to Cloudflare (needs `npx wrangler login` o
 
 ## Placeholders to fill (search for `TODO` and `[`)
 
-- Hand-drawn sketch: replace the generated placeholder (`sketch-placeholder`) once the scan arrives
+None right now.
+
+## The sketch
+
+`assets-src/sketch-scan.png` is the designer's drawing on the blue baseline sheet. `npm run images` crops it to the photo frame (registered to `sketch-photo`), drops the blue and turns the ink into a transparent graphite layer (`sketch`). A new sketch drawn on the same baseline sheet can simply replace the PNG.
 
 ## Adding or swapping a photo
 

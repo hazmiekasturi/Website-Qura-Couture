@@ -228,14 +228,15 @@
     "alpha": false,
     "blur": "data:image/webp;base64,UklGRmoAAABXRUJQVlA4IF4AAADwAQCdASoQAAsAA4BaJZwAAqAiiBbCF8AA/veCe9aERSndMHJ831/LbNN9G0oLpJ7fyClI6pZef5/SXeRo76igE8/Gyl1Kr9e90e+n02e8mhKFUInRtazR2AAEoAAA"
   },
-  "sketch-placeholder": {
-    "w": 1275,
-    "h": 2125,
+  "sketch": {
+    "w": 1698,
+    "h": 2830,
     "widths": [
       480,
       768,
       1080,
-      1275
+      1440,
+      1698
     ],
     "alpha": true,
     "blur": null
